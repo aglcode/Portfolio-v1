@@ -77,30 +77,26 @@ function Navbar() {
                   <DockItem className="aspect-square rounded-full bg-muted">
                     <DockLabel>{item.title}</DockLabel>
                     <DockIcon>
-                      <AnimatePresence mode="wait">
-                        {hoveredItem === idx ? (
-                          <motion.span
-                            key="text"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.15 }}
-                            className="text-foreground text-sm font-medium"
-                          >
+                      {/* The key change is here - showing both icon and text, but with different opacity */}
+                      <div className="relative w-full h-full flex items-center justify-center">
+                        {/* Icon always present but with varying opacity */}
+                        <div 
+                          className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
+                          style={{ opacity: hoveredItem === idx ? 0 : 1 }}
+                        >
+                          <Icon className="text-foreground" size={20} />
+                        </div>
+                        
+                        {/* Text always present but with varying opacity */}
+                        <div 
+                          className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
+                          style={{ opacity: hoveredItem === idx ? 1 : 0 }}
+                        >
+                          <span className="text-foreground text-sm font-medium">
                             {item.title}
-                          </motion.span>
-                        ) : (
-                          <motion.div
-                            key="icon"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.15 }}
-                          >
-                            <Icon className="text-foreground" size={20} />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                          </span>
+                        </div>
+                      </div>
                     </DockIcon>
                   </DockItem>
                 </a>
@@ -111,35 +107,35 @@ function Navbar() {
       </div>
 
       {/* Mobile menu */}
-<AnimatePresence>
-  {menuOpen && (
-    <motion.div
-      key="mobile-menu"
-      initial={{ x: 200, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 200, opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="md:hidden absolute right-4 top-16 bg-background shadow-lg rounded-md px-4 pt-4 pb-6 w-56 z-50"
-    >
-      <div className="flex flex-col space-y-4">
-        {navigationItems.map((item, idx) => {
-          const Icon = item.icon;
-          return (
-            <a
-              key={idx}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-3 text-foreground text-base font-medium"
-            >
-              <Icon size={18} />
-              {item.title}
-            </a>
-          );
-        })}
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ x: 200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 200, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden absolute right-4 top-16 bg-background shadow-lg rounded-md px-4 pt-4 pb-6 w-56 z-50"
+          >
+            <div className="flex flex-col space-y-4">
+              {navigationItems.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={idx}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3 text-foreground text-base font-medium"
+                  >
+                    <Icon size={18} />
+                    {item.title}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
