@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 13%;
+    --input: 0 0% 13%;
+    --ring: 0 0% 13%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.portfolio {
+  @apply w-full bg-background text-foreground;
+}
+
+.nav {
+  @apply fixed top-0 w-full bg-background/95 py-4 z-50;
+}
+
+.nav-content {
+  @apply max-w-7xl mx-auto px-8 flex justify-between items-center;
+}
+
+.nav-logo {
+  @apply text-2xl font-bold;
+}
+
+.nav-links {
+  @apply flex gap-8;
+}
+
+.nav-links a {
+  @apply text-foreground no-underline transition-colors hover:text-muted-foreground;
+}
+
+.section {
+  @apply min-h-screen flex items-center border-b border-muted;
+}
+
+#home {
+  @apply pt-20;
+}
+
+#home h1 {
+  @apply text-6xl mb-4;
+}
+
+#home h2 {
+  @apply text-2xl text-muted-foreground mb-8;
+}
+
+.work-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12;
+}
+
+.work-item {
+  @apply bg-card p-8 border border-border transition-transform hover:-translate-y-1;
+}
+
+.work-item h3 {
+  @apply mb-4;
+}
+
+.work-item p {
+  @apply text-muted-foreground;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    @apply hidden;
+  }
+  
+  #home h1 {
+    @apply text-4xl;
+  }
+  
+  #home h2 {
+    @apply text-xl;
+  }
+  
+  .section {
+    @apply px-4 py-8;
+  }
+}
